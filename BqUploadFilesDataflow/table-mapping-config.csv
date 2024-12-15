@@ -1,0 +1,4 @@
+inputFilePattern,datasetName,tableName,projectId,skipheaderRow,columnDelimiter
+*_table_1_data.txt,ckd,TABLE_ONE,project-id,1,|
+*_table_2_data.txt,ckd,TABLE_TWO,project-id,1,|
+

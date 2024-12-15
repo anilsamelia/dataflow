@@ -1,0 +1,63 @@
+{
+  "name": "Download files from SFTP server",
+  "description": "Batch pipeline to stream files from SFTP server to Google Cloud Storage bucket to a specific location",
+  "parameters": [
+    {
+      "name": "projectId",
+      "label": "Project ID",
+      "helpText": "Project ID where Secret Keys are stored",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "host",
+      "label": "SFTP Server host name",
+      "helpText": "Host name/IP address of SFTP Server",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "username",
+      "label": "Username secret key name",
+      "helpText": "Actual Username to be extracted from secret key name provided here.",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "password",
+      "label": "Password secret key name",
+      "helpText": "Actual Password to be extracted from secret key name provided here.",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "inputFolder",
+      "label": "Input folder on SFTP server",
+      "helpText": "Folder on SFTP server from where this will download all the files",
+      "isOptional": true,
+      "paramType": "TEXT"
+    },
+    {
+      "name": "inputFilePattern",
+      "label": "Input file(s) on SFTP server",
+      "helpText": "The input file pattern Dataflow reads from SFTP server. Ex: folder/*",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "outputFolder",
+      "label": "Output Folder in Cloud Storage",
+      "helpText": "Output folder where to write downloaded files. Ex: gs://your-bucket/downloaded",
+      "paramType": "GCS_WRITE_FOLDER"
+    },
+    {
+      "name": "concurrency",
+      "label": "Concurrent connection to SFTP server",
+      "helpText": "Concurrent connection to be created while downloading files. if not given, then it will download all files concurrently ",
+      "isOptional": true,
+      "paramType": "TEXT"
+    },
+    {
+      "name": "bufferSize",
+      "label": "Chunk size for downloading files",
+      "helpText": "Chunk size to stream files from SFTP server to Output folder on GCS bucket, by default it is 1048576 i.e. 1MB",
+      "isOptional": true,
+      "paramType": "TEXT"
+    }
+  ]
+}

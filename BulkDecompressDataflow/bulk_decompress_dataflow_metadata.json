@@ -1,0 +1,33 @@
+{
+  "name": "Bulk Decompress GCS Files",
+  "description": "A pipeline which decompresses files on GCS to a specified location. Supported formats: Bzip2, deflate, and gzip.",
+  "parameters": [
+    {
+      "name": "inputFilePattern",
+      "label": "The input file pattern to read from",
+      "helpText": "The input file pattern to read from (e.g., gs://your-bucket/compressed/*.gz)",
+      "regexes": [
+        "^gs:\\/\\/[^\\n\\r]+$"
+      ],
+      "paramType": "TEXT"
+    },
+    {
+      "name": "outputDirectory",
+      "label": "The output location to write to",
+      "helpText": "The output location to write to (e.g., gs://your-bucket/decompressed/).",
+      "regexes": [
+        "^gs:\\/\\/[^\\n\\r]+$"
+      ],
+      "paramType": "GCS_WRITE_FOLDER"
+    },
+    {
+      "name": "errorDirectory",
+      "label": "The error location to write to",
+      "helpText": "The error location to write to file which were failed to decompress (e.g., gs://your-bucket/error/decompress/).",
+      "regexes": [
+        "^gs:\\/\\/[^\\n\\r]+$"
+      ],
+      "paramType": "GCS_WRITE_FOLDER"
+    }
+  ]
+}

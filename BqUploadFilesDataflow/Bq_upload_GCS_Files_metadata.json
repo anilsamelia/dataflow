@@ -1,0 +1,42 @@
+{
+	"name": "BQ Upload CSV Files",
+	"description": "Batch pipeline. BQ upload csv file in bigquery",
+	"parameters": [
+		{
+			"name": "sourceLocation",
+			"label": "Input file(s) in Cloud Storage",
+			"helpText": "The input file pattern Dataflow reads from. Ex: gs://your-bucket/files/",
+			"regexes": [
+				"^gs:\\/\\/[^\\n\\r]+$"
+			],
+			"paramType": "TEXT"
+		},
+		{
+			"name": "archiveLocation",
+			"label": "Success files location",
+			"helpText": "After successfuly the files is moved this location . Ex: gs://your-bucket/extract_fils/",
+			"regexes": [
+				"^gs:\\/\\/[^\\n\\r]+$"
+			],
+			"paramType": "GCS_WRITE_FOLDER"
+		},
+		{
+			"name": "exceptionLocation",
+			"label": "Fail files location",
+			"helpText": "After fail the files is moved this location. Ex: gs://your-bucket/extract_fils/",
+			"regexes": [
+				"^gs:\\/\\/[^\\n\\r]+$"
+			],
+			"paramType": "GCS_WRITE_FOLDER"
+		},
+		{
+			"name": "configFileLocation",
+			"label": "Configuration File to map data files to tables",
+			"helpText": "This file has mapping about data getting loaded to dataset/table. Ex: gs://your-bucket/data/config.csv",
+			"regexes": [
+				"^gs:\\/\\/[^\\n\\r]+$"
+			],
+			"paramType": "GCS_WRITE_FILE"
+		}
+	]
+}

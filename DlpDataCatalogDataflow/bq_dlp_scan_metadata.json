@@ -1,0 +1,55 @@
+{
+  "name": "Big Query DLP Scan",
+  "description": "Big Query DLP scan pipeline.",
+  "parameters": [
+    {
+      "name": "projectId",
+      "label": "Project ID",
+      "helpText": "Provide Google Project ID",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "tagRegion",
+      "label": "Tag Region",
+      "helpText": "Provide region where Data Catalog tag template is created",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "datasetId",
+      "label": "Dataset ID",
+      "helpText": "Provide thee Dataset ID of BigQuery",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "table",
+      "label": "Table",
+      "helpText": "Provide BigQuery Table, need to be scanned",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "maxLimit",
+      "label": "Max Limit",
+      "helpText": "Provide the max limit we can query Big Query data",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "infoTypes",
+      "label": "Info Types",
+      "helpText": "Provide info type fields seperated by '/' i.e. PHONE_NUMBER/EMAIL_ADDRESS/CREDIT_CARD_NUMBER",
+      "paramType": "TEXT",
+      "isOptional": true
+    },
+    {
+      "name": "tagTemplateId",
+      "label": "Tag Template ID",
+      "helpText": "Provide Data Catalog Tag Template ID",
+      "paramType": "TEXT"
+    },
+    {
+      "name": "tagTemplateDisplayName",
+      "label": "Tag Template DisplayName",
+      "helpText": "Provide Data Catalog Tag Template Display name",
+      "paramType": "TEXT"
+    }
+  ]
+}

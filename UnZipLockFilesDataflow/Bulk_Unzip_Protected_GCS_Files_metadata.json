@@ -1,0 +1,52 @@
+{
+	"name": "Bulk Unzip GCS Files",
+	"description": "Batch pipeline. Unzip password protected files on Cloud Storage to a specified location.",
+	"parameters": [
+		{
+			"name": "sourceDirectory",
+			"label": "Source Directory",
+			"helpText": "The source location Dataflow reads to. Ex: gs://your-bucket/zip_fils/",
+			"regexes": [
+				"^gs:\\/\\/[^\\n\\r]+$"
+			],
+			"paramType": "GCS_WRITE_FOLDER"
+		},
+		{
+			"name": "inputFilePattern",
+			"label": "Input file(s) in Cloud Storage",
+			"helpText": "The input file pattern Dataflow reads from. Ex: source/data_*.zip",
+			"paramType": "TEXT"
+		},
+		{
+			"name": "outputDirectory",
+			"label": "Output directory",
+			"helpText": "The output location Dataflow writes to. Ex: gs://your-bucket/extract_fils/",
+			"regexes": [
+				"^gs:\\/\\/[^\\n\\r]+$"
+			],
+			"paramType": "GCS_WRITE_FOLDER"
+		},
+		{
+			"name": "secretPasswordVariable",
+			"label": "gcp secret password variable",
+			"helpText": "The input to read the password from secret manager",
+			"paramType": "TEXT"
+		},
+		{
+			"name": "exceptionLocation",
+			"label": "Exception file location (s) in Cloud Storage",
+			"helpText": "Location where fail files are be moved. Ex: gs://your-bucket/exception",
+			"regexes": [
+				"^gs:\\/\\/[^\\n\\r]+$"
+			],			
+			"paramType": "GCS_WRITE_FOLDER"
+		},
+		{
+			"name": "streamBufferSize",
+			"label": "stream buffer size ",
+			"helpText": "The input to read the streaming data size, by default it is 1048576 i.e. 1MB ",
+			"paramType": "TEXT",
+			"isOptional": true
+		}
+	]
+}
