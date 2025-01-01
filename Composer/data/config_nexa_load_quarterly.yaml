@@ -1,0 +1,143 @@
+
+##############   nexa QA CONFIGS #################
+
+
+qa:     
+
+    location: "us-central1"
+    staging-bucket-name: &staging-bucket-name "nexa-qa-27-inbound"
+    staging-bucket-path: "gs://nexa-qa-27-inbound/"
+    landing_folder: "process/landing/"
+    archive_folder: "archive/"
+    load_year: "2021"
+    load_quarter: "4"
+    
+    dataflow:
+      service-account: "dataflow-service-account@nexa-qa-27.iam.gserviceaccount.com"
+      subnetwork: "https://www.googleapis.com/compute/v1/projects/nexa-qa-27/regions/us-central1/subnetworks/composer-qa-subnetwork-dnwc"
+      gcp-conn-id: "dataflow_service_account_json"
+    
+    sftp-df:
+      dataflow-template-path: "gs://nexa-qa-27-artifacts/df-templates/sftpdataflow-files"
+      host: "ecgpe.nexagroup.com"
+      username-secret-key: "dataflow-ftp-username"
+      password-secret-key: "dataflow-ftp-password"
+      concurrency: "1"
+      folder:
+        input-file-pattern: "*.*"
+        input: "/nexa_EHR"
+        output: "process/landing/"   
+    
+    copy-to-archive:
+      bucket:
+        source: *staging-bucket-name
+        destination: *staging-bucket-name
+      folder:
+        source: "process/landing/"
+        destination: "archive/"
+    
+    bq-schema-java:
+      jar-path: "gs://nexa-qa-27-artifacts/java-jars/big-query-schema-generator-v1.0.jar"
+      raw-data-dict-wild-card: "process/landing/*hum_*_data_dictionary_integrated.xlsx"
+      raw-data-dict-path: "process/landing/nexa_nexa_raw_data_dict.xlsx"
+      final-data-dict-path: "gs://nexa-qa-27-artifacts/config/nexa_nexa_final_data_dictionary.xlsx"
+      sql-file: &sql-file "bq_data_load_queries.sql"
+    
+    bulk-decompress-df:
+      dataflow-template-path: "gs://nexa-qa-27-artifacts/df-templates/bulk-decompress-gcs-files"
+      folder:
+        input-file-pattern: "process/landing/*.gz"
+        output: "process/decompressed/"
+        error: "process/error/decompress/"
+    
+    bq-upload-df:
+      dataflow-template-path: "gs://nexa-qa-27-artifacts/df-templates/bq-upload-files"
+      config-file-path: "gs://nexa-qa-27-artifacts/config/table-mapping-config.csv"
+      folder:
+        source: "process/decompressed/"
+        archive: "process/loaded/"
+        error: "process/error/bq-upload/"
+    
+    bq-sql-load:
+      sql-file: *sql-file
+    
+    
+    recon_ckd-wild-card-file-name: "process/landing/nexa_ckd_*_table_counts.csv"
+    recon_ckd-new-file-name: "process/landing/nexa_ckd_table_counts.csv"
+    recon_ten-p-wild-card-file-name: "process/landing/10p_hum_*_table_counts_integrated.csv"
+    recon_ten-p-new-file-name: "process/landing/10p_hum_table_counts_integrated.csv"
+
+
+
+##############   nexa PROD CONFIGS #################
+
+
+prod:     
+
+    location: "us-central1"
+    staging-bucket-name: &staging-bucket-name-p "nexa-prod-c5-inbound"
+    staging-bucket-path: "gs://nexa-prod-c5-inbound/"
+    landing_folder: "process/landing/"
+    archive_folder: "archive/"
+    load_year: "2022"
+    load_quarter: "1"
+    
+    dataflow:
+      service-account: "dataflow-service-account@nexa-prod-c5.iam.gserviceaccount.com"
+      subnetwork: "https://www.googleapis.com/compute/v1/projects/nexa-prod-c5/regions/us-central1/subnetworks/composer-default-subnetwork-xvpl"
+      gcp-conn-id: "dataflow_service_account_json"
+    
+    sftp-df:
+      dataflow-template-path: "gs://nexa-prod-c5-artifacts/df-templates/sftpdataflow-files"
+      host: "ecgpe.healthtechnologygroup.com"
+      username-secret-key: "dataflow-nexa-username"
+      password-secret-key: "dataflow-nexa-password"
+      concurrency: "1"
+      buffer-size: "80192"
+      folder:
+        input-file-pattern: "*.*"
+        input: "/nexa_EHR"
+        output: "process/landing/"   
+    
+    copy-to-archive:
+      bucket:
+        source: *staging-bucket-name-p
+        destination: *staging-bucket-name-p
+      folder:
+        source: "process/landing/"
+        destination: "archive/"
+    
+    bq-schema-java:
+      jar-path: "gs://nexa-prod-c5-artifacts/java-jars/big-query-schema-generator-v1.0.jar"
+      raw-data-dict-wild-card: "process/landing/*hum_*_data_dictionary_integrated.xlsx"
+      raw-data-dict-path: "process/landing/nexa_nexa_raw_data_dict.xlsx"
+      final-data-dict-path: "gs://nexa-prod-c5-artifacts/config/nexa_nexa_final_data_dictionary.xlsx"
+      sql-file: &sql-file-p "bq_data_load_queries.sql"
+    
+    bulk-decompress-df:
+      dataflow-template-path: "gs://nexa-prod-c5-artifacts/df-templates/bulk-decompress-gcs-files"
+      folder:
+        input-file-pattern: "process/landing/*.gz"
+        output: "process/decompressed/"
+        error: "process/error/decompress/"
+    
+    bq-upload-df:
+      dataflow-template-path: "gs://nexa-prod-c5-artifacts/df-templates/bq-upload-files"
+      config-file-path: "gs://nexa-prod-c5-artifacts/config/table-mapping-config.csv"
+      folder:
+        source: "process/decompressed/"
+        archive: "process/loaded/"
+        error: "process/error/bq-upload/"
+    
+    bq-sql-load:
+      sql-file: *sql-file-p
+    
+    
+    recon_ckd-wild-card-file-name: "process/landing/nexa_ckd_*_table_counts.csv"
+    recon_ckd-new-file-name: "process/landing/nexa_ckd_table_counts.csv"
+    recon_ten-p-wild-card-file-name: "process/landing/10p_hum_*_table_counts_integrated.csv"
+    recon_ten-p-new-file-name: "process/landing/10p_hum_table_counts_integrated.csv"
+
+
+
+
