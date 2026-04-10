@@ -3,7 +3,7 @@
 #                                                                                                                                       #
 #                       SCRIPT NAME      : optum_src_file_rename.sh                                                                     #
 #                       VERSION          : v1                                                                                           #
-#                       AUTHOR           : IRSHAD KHAN <xyz@gmail.COM>                                                         #
+#                       AUTHOR           : xyz  <xyz@gmail.COM>                                                         #
 #                       DATE OF CREATION : FEB 10 2023                                                                                  # 
 #                       PURPOSE          : RENAMES THE SOURCE FILES FOR PROCESSING                                                      #
 #                                                                                                                                       #
