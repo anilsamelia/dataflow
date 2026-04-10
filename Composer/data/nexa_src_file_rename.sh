@@ -1,7 +1,7 @@
 #! /bin/bash
 #########################################################################################################################################
 #                                                                                                                                       #
-#                       SCRIPT NAME      : optum_src_file_rename.sh                                                                     #
+#                       SCRIPT NAME      : nexa_src_file_rename.sh                                                                     #
 #                       VERSION          : v1                                                                                           #
 #                       AUTHOR           : xyz  <xyz@gmail.COM>                                                         #
 #                       DATE OF CREATION : FEB 10 2023                                                                                  # 
